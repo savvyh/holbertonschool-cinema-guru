@@ -1,4 +1,6 @@
-import "general.css"
+import "./general.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export default function SearchBar({title, setTitle}) {
     function handleInput(event) {
@@ -6,6 +8,9 @@ export default function SearchBar({title, setTitle}) {
     }
 
     return (
-        <input value={title} onChange={handleInput}/>
+        <div>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+            <input value={title} onChange={handleInput}/>
+        </div>
     )
 }
