@@ -1,4 +1,4 @@
-import "general.css"
+import "./general.css"
 
 export default function Input({label, type, className, value, setValue, icon, inputAttributes = {}}) {
     function handleInput(event) {

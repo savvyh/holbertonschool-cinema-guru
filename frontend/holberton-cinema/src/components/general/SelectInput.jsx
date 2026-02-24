@@ -1,4 +1,4 @@
-import "general.css"
+import "./general.css"
 
 export default function SelectInput({label, options, className, value, setValue}) {
     function handleSelect(event) {
