@@ -12,32 +12,17 @@ export default function Authentification({ setIsLoggedIn, setUserUsername }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    if (_switch) {
-      axios
-        .post("/api/auth/login", {
-          username: username,
-          password: password,
-        })
-        .then((response) => {
-          const data = response.data;
-          localStorage.setItem("accessToken", data.accessToken);
-          setIsLoggedIn(true);
-          setUserUsername(data.username);
-        });
-    } else {
-      axios
-        .post("/api/auth/register", {
-          username: username,
-          password: password,
-        })
-        .then((response) => {
-          const data = response.data;
-          localStorage.setItem("accessToken", data.accessToken);
-          setIsLoggedIn(true);
-          setUserUsername(data.username);
-        });
-    }
+    const route = _switch ? "/api/auth/login" : "/api/auth/register";
+    axios
+      .post(route, {
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        setIsLoggedIn(true);
+        setUserUsername(username);
+      });
   }
 
   return (
