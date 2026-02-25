@@ -1,0 +1,69 @@
+import "./movies.css";
+import SearchBar from "./SearchBar";
+import Input from "./Input";
+import SelectInput from "../general/SelectInput";
+import Tag from "./Tag";
+
+export default function Filter({
+  minYear,
+  setMinYear,
+  maxYear,
+  setMaxYear,
+  sort,
+  setSort,
+  genres,
+  setGenres,
+  title,
+  setTitle,
+}) {
+  const genresList = [
+    "action",
+    "drama",
+    "comedy",
+    "biography",
+    "romance",
+    "thriller",
+    "war",
+    "history",
+    "sport",
+    "sci-fi",
+    "documentary",
+    "crime",
+    "fantasy",
+  ];
+  return (
+    <div>
+      <SearchBar title={title} setTitle={setTitle} />
+      <Input
+        label="Min Date"
+        type="number"
+        value={minYear}
+        setValue={setMinYear}
+      />
+      <Input
+        label="Max Date"
+        type="number"
+        value={maxYear}
+        setValue={setMaxYear}
+      />
+      <SelectInput
+        label="Sort"
+        options={["latest", "oldest", "highestrated", "lowestrated"]}
+        value={sort}
+        setValue={setSort}
+      />
+
+      <ul>
+        {genresList.map((genre) => (
+          <Tag
+            key={genre}
+            filter={true}
+            genre={genre}
+            genres={genres}
+            setGenres={setGenres}
+          />
+        ))}
+      </ul>
+    </div>
+  );
+}
