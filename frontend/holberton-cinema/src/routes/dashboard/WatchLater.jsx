@@ -14,10 +14,13 @@ export default function WatchLater() {
 
   return (
     <div>
-      <h1>Movies to watch later</h1>
-      {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
+      <h1 className="page-title">Movies to watch later</h1>
+      <div className="page-title-underline"></div>
+      <div className="movies-grid">
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
     </div>
   );
 }

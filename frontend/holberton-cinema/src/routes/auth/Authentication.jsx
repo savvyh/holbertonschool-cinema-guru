@@ -26,27 +26,41 @@ export default function Authentification({ setIsLoggedIn, setUserUsername }) {
   }
 
   return (
-    <>
-      <Button label="Sign In" type="button" onClick={() => _setSwitch(true)} />
-      <Button label="Sign Up" type="button" onClick={() => _setSwitch(false)} />
+    <div className="auth-container">
+      <div className="auth-modal">
+        <div className="auth-tabs">
+          <Button
+            label="Sign In"
+            type="button"
+            onClick={() => _setSwitch(true)}
+            className={`auth-tab ${_switch ? "active" : ""}`}
+          />
+          <Button
+            label="Sign Up"
+            type="button"
+            onClick={() => _setSwitch(false)}
+            className={`auth-tab ${!_switch ? "active" : ""}`}
+          />
+        </div>
 
-      <form onSubmit={handleSubmit}>
-        {_switch ? (
-          <Login
-            username={username}
-            setUsername={setUsername}
-            password={password}
-            setPassword={setPassword}
-          />
-        ) : (
-          <Register
-            username={username}
-            setUsername={setUsername}
-            password={password}
-            setPassword={setPassword}
-          />
-        )}
-      </form>
-    </>
+        <form className="auth-form" onSubmit={handleSubmit}>
+          {_switch ? (
+            <Login
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+            />
+          ) : (
+            <Register
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+            />
+          )}
+        </form>
+      </div>
+    </div>
   );
 }

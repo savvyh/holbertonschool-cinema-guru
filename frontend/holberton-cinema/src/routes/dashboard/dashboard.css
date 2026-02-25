@@ -1,0 +1,50 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.dashboard-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.dashboard-content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #2d2d2d;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.page-title {
+  text-align: center;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 12px 0;
+}
+
+.page-title-underline {
+  width: 200px;
+  height: 3px;
+  background-color: #e53935;
+  margin: 0 auto 40px auto;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}

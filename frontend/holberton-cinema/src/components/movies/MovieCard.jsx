@@ -17,18 +17,16 @@ export default function MovieCard({ movie }) {
 
   useEffect(() => {
     axios.get("/api/titles/favorite/").then((response) => {
-      const data = response.data;
-      const isFavMovie = data.movies.some(
+      const isFavMovie = response.data.movies.some(
         (favMovie) => favMovie.imdbId === movie.imdbId,
       );
       setIsFavorite(isFavMovie);
     });
     axios.get("/api/titles/watchlater/").then((response) => {
-      const data = response.data;
-      const isMovieInWatchLateList = data.movies.some(
-        (watchLateMovie) => watchLateMovie.imdbId === movie.imdbId,
+      const isInWatchLater = response.data.movies.some(
+        (m) => m.imdbId === movie.imdbId,
       );
-      setIsWatchLater(isMovieInWatchLateList);
+      setIsWatchLater(isInWatchLater);
     });
   }, [movie.imdbId]);
 
@@ -51,32 +49,36 @@ export default function MovieCard({ movie }) {
   }
 
   return (
-    <li>
-      {isFavorite ? (
-        <FontAwesomeIcon
-          icon={faStarSolid}
-          onClick={() => handleClick("favorite")}
-        />
+    <li className="movie-card">
+      {movie.image ? (
+        <img className="movie-card-image" src={movie.image} alt={movie.title} />
       ) : (
-        <FontAwesomeIcon
-          icon={faStarRegular}
-          onClick={() => handleClick("favorite")}
-        />
+        <div className="movie-card-image-placeholder" />
       )}
-      {isWatchLater ? (
+
+      <div className="movie-card-icons">
         <FontAwesomeIcon
-          icon={faClockSolid}
+          icon={isWatchLater ? faClockSolid : faClockRegular}
           onClick={() => handleClick("watchlater")}
         />
-      ) : (
         <FontAwesomeIcon
-          icon={faClockRegular}
-          onClick={() => handleClick("watchlater")}
+          icon={isFavorite ? faStarSolid : faStarRegular}
+          onClick={() => handleClick("favorite")}
         />
-      )}
-      {movie.title}
-      {movie.synopsis}
-      {movie.genres}
+      </div>
+
+      <div className="movie-card-body">
+        <p className="movie-card-title">{movie.title}</p>
+        <p className="movie-card-synopsis">{movie.synopsis}</p>
+        <ul className="movie-card-genres">
+          {movie.genres &&
+            movie.genres.map((genre) => (
+              <li key={genre} className="movie-card-genre">
+                {genre}
+              </li>
+            ))}
+        </ul>
+      </div>
     </li>
   );
 }

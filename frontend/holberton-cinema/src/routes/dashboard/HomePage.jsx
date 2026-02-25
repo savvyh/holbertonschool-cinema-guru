@@ -18,12 +18,12 @@ export default function HomePage() {
     axios
       .get("/api/titles/advancedsearch", {
         params: {
-          minYear: minYear,
-          maxYear: maxYear,
-          genres: genres,
-          title: title,
-          sort: sort,
-          page: page,
+          minYear,
+          maxYear,
+          genres,
+          title,
+          sort,
+          page,
         },
       })
       .then((response) => {
@@ -49,14 +49,18 @@ export default function HomePage() {
         title={title}
         setTitle={setTitle}
       />
-      {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-      <Button
-        label="Load More.."
-        type="button"
-        onClick={() => loadMovies(page + 1)}
-      />
+      <div className="movies-grid">
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
+      <div className="load-more-container">
+        <Button
+          label="Load More.."
+          type="button"
+          onClick={() => loadMovies(page + 1)}
+        />
+      </div>
     </div>
   );
 }

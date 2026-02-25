@@ -1,0 +1,21 @@
+.activity-item {
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.5;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.activity-user {
+  color: #e53935;
+  font-weight: 600;
+}
+
+.activity-text {
+  color: #ffffff;
+}
+
+.activity-title {
+  color: #e53935;
+  font-weight: 500;
+}

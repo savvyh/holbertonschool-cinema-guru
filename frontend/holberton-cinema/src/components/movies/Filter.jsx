@@ -31,39 +31,49 @@ export default function Filter({
     "crime",
     "fantasy",
   ];
-  return (
-    <div>
-      <SearchBar title={title} setTitle={setTitle} />
-      <Input
-        label="Min Date"
-        type="number"
-        value={minYear}
-        setValue={setMinYear}
-      />
-      <Input
-        label="Max Date"
-        type="number"
-        value={maxYear}
-        setValue={setMaxYear}
-      />
-      <SelectInput
-        label="Sort"
-        options={["latest", "oldest", "highestrated", "lowestrated"]}
-        value={sort}
-        setValue={setSort}
-      />
 
-      <ul>
-        {genresList.map((genre) => (
-          <Tag
-            key={genre}
-            filter={true}
-            genre={genre}
-            genres={genres}
-            setGenres={setGenres}
+  return (
+    <div className="filter-container">
+      <SearchBar title={title} setTitle={setTitle} />
+      <div className="filter-row">
+        <div className="filter-inputs">
+          <Input
+            label="Min Date :"
+            type="number"
+            value={minYear}
+            setValue={setMinYear}
           />
-        ))}
-      </ul>
+          <Input
+            label="Max Date :"
+            type="number"
+            value={maxYear}
+            setValue={setMaxYear}
+          />
+          <SelectInput
+            label="Sort :"
+            options={[
+              "default",
+              "latest",
+              "oldest",
+              "highestrated",
+              "lowestrated",
+            ]}
+            value={sort}
+            setValue={setSort}
+          />
+        </div>
+        <ul className="filter-tags">
+          {genresList.map((genre) => (
+            <Tag
+              key={genre}
+              filter={true}
+              genre={genre}
+              genres={genres}
+              setGenres={setGenres}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

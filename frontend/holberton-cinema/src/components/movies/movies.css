@@ -1,0 +1,121 @@
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.filter-inputs {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.filter-tags li {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+  border: 1.5px solid #ffffff;
+  color: #ffffff;
+  background-color: transparent;
+  list-style: none;
+  user-select: none;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  position: relative;
+  list-style: none;
+}
+
+.movie-card-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+
+.movie-card-image-placeholder {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-color: #cccccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie-card-icons {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.movie-card-icons svg {
+  font-size: 16px;
+  color: #ffffff;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
+  transition: color 0.2s;
+}
+
+.movie-card-icons svg:hover {
+  color: #e53935;
+}
+
+.movie-card-body {
+  padding: 10px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.movie-card-title {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.movie-card-synopsis {
+  color: #cccccc;
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.movie-card-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+}
+
+.movie-card-genre {
+  background-color: #e53935;
+  color: #ffffff;
+  font-size: 11px;
+  padding: 3px 12px;
+  border-radius: 20px;
+}

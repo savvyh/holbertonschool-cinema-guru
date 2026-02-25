@@ -1,0 +1,137 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #3a3a3a;
+  border-radius: 20px;
+  padding: 10px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-bar svg {
+  color: #ffffff;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+}
+
+.search-bar input::placeholder {
+  color: #aaaaaa;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.input-group input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #e53935;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 6px 0;
+  width: 100%;
+}
+
+.input-group input:focus {
+  border-bottom: 2px solid #ff5252;
+}
+
+.input-group.error input {
+  border: 1px solid #e53935;
+  padding: 6px 8px;
+}
+
+.input-group .error-message {
+  color: #e53935;
+  font-size: 12px;
+}
+
+.select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.select-group select {
+  background-color: #3a3a3a;
+  border: none;
+  border-bottom: 2px solid #e53935;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 6px 4px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.select-group select option {
+  background-color: #3a3a3a;
+  color: #ffffff;
+}
+
+.btn {
+  background-color: #e53935;
+  color: #ffffff;
+  border: none;
+  border-radius: 0;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn:hover {
+  background-color: #c62828;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+  border: 1.5px solid #ffffff;
+  color: #ffffff;
+  background-color: transparent;
+  list-style: none;
+  user-select: none;
+}
+
+.tag.selected {
+  background-color: #e53935;
+  border-color: #e53935;
+  color: #ffffff;
+}
+
+.tag:hover {
+  background-color: #c62828;
+  border-color: #c62828;
+  color: #ffffff;
+}
