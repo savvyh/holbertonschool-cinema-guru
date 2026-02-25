@@ -1,6 +1,6 @@
 import "./movies.css";
-import SearchBar from "./SearchBar";
-import Input from "./Input";
+import SearchBar from "../general/SearchBar";
+import Input from "../general/Input";
 import SelectInput from "../general/SelectInput";
 import Tag from "./Tag";
 
