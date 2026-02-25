@@ -1,6 +1,9 @@
 import "./dashboard.css";
 import Header from "../../components/navigation/Header";
 import Sidebar from "../../components/navigation/SideBar";
+import HomePage from "./HomePage";
+import Favorites from "./Favorites";
+import WatchLater from "./WatchLater";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export default function Dashboard({ userUsername, setIsLoggedIn }) {
