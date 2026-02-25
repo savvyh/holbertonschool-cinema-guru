@@ -1,9 +1,9 @@
-import "./component.css"
+import "./components.css";
 
 export default function Activity() {
-    return (
-        <li>
-            <p></p>
-        </li>
-    )
+  return (
+    <li>
+      <p></p>
+    </li>
+  );
 }
