@@ -27,26 +27,26 @@ export default function Authentification({ setIsLoggedIn, setUserUsername }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <Button label="Sign In" onClick={() => _setSwitch(true)} />
-        <Button label="Sign Up" onClick={() => _setSwitch(false)} />
-      </form>
+      <Button label="Sign In" type="button" onClick={() => _setSwitch(true)} />
+      <Button label="Sign Up" type="button" onClick={() => _setSwitch(false)} />
 
-      {_switch ? (
-        <Login
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-        />
-      ) : (
-        <Register
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-        />
-      )}
+      <form onSubmit={handleSubmit}>
+        {_switch ? (
+          <Login
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+          />
+        ) : (
+          <Register
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+          />
+        )}
+      </form>
     </>
   );
 }
