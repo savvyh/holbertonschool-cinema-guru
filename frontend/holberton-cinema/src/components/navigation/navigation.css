@@ -117,13 +117,16 @@
   padding: 16px 12px;
   overflow-y: auto;
   flex: 1;
+  background-color: #1a1a1a;
 }
 
 .sidebar-activities-title {
   color: #ffffff;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #3a3a3a;
 }
 
 .sidebar-activities-list {

@@ -3,7 +3,11 @@
   font-size: 11px;
   line-height: 1.5;
   padding-bottom: 8px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.activity-item p {
+  margin: 0;
 }
 
 .activity-user {
