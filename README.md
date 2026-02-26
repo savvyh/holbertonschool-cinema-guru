@@ -3,6 +3,7 @@
 A full-stack cinema application built with React and Node.js, allowing users to discover, search, and manage their favorite movies and watchlists.
 
 ## Overview
+<img width="1902" height="991" alt="image" src="https://github.com/user-attachments/assets/65402cca-7ace-476d-9572-0fd2ed0c8e82" />
 
 Cinema Guru is a modern web application that provides a comprehensive movie browsing experience. Users can explore a curated collection of films, filter by various criteria, and maintain personalized lists of favorites and movies to watch later.
 
