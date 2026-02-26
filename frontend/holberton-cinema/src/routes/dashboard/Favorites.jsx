@@ -7,9 +7,15 @@ export default function Favorites() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/titles/favorite/").then((response) => {
-      setMovies(response.data.movies);
-    });
+    axios
+      .get("/api/titles/favorite/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((response) => {
+        setMovies(response.data ?? []);
+      });
   }, []);
 
   return (

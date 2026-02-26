@@ -25,9 +25,13 @@ export default function HomePage() {
           sort,
           page,
         },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       })
       .then((response) => {
-        setMovies(response.data.movies);
+        const nextMovies = response.data.titles ?? response.data.movies ?? [];
+        setMovies(nextMovies);
       });
   }
 

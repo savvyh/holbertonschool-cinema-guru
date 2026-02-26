@@ -7,9 +7,15 @@ export default function WatchLater() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/titles/watchlater/").then((response) => {
-      setMovies(response.data.movies);
-    });
+    axios
+      .get("/api/titles/watchlater/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((response) => {
+        setMovies(response.data ?? []);
+      });
   }, []);
 
   return (

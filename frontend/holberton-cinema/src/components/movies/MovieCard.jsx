@@ -16,33 +16,69 @@ export default function MovieCard({ movie }) {
   const [isWatchLater, setIsWatchLater] = useState(false);
 
   useEffect(() => {
-    axios.get("/api/titles/favorite/").then((response) => {
-      const isFavMovie = response.data.movies.some(
-        (favMovie) => favMovie.imdbId === movie.imdbId,
-      );
-      setIsFavorite(isFavMovie);
-    });
-    axios.get("/api/titles/watchlater/").then((response) => {
-      const isInWatchLater = response.data.movies.some(
-        (m) => m.imdbId === movie.imdbId,
-      );
-      setIsWatchLater(isInWatchLater);
-    });
+    axios
+      .get("/api/titles/favorite/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((response) => {
+        const isFavMovie = response.data.some(
+          (favMovie) => favMovie.imdbId === movie.imdbId,
+        );
+        setIsFavorite(isFavMovie);
+      });
+    axios
+      .get("/api/titles/watchlater/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((response) => {
+        const isInWatchLater = response.data.some(
+          (m) => m.imdbId === movie.imdbId,
+        );
+        setIsWatchLater(isInWatchLater);
+      });
   }, [movie.imdbId]);
 
   function handleClick(type) {
     if (type === "favorite") {
       if (isFavorite) {
-        axios.delete(`/api/titles/favorite/${movie.imdbId}/`);
+        axios.delete(`/api/titles/favorite/${movie.imdbId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
       } else {
-        axios.post("/api/titles/favorite/", { movieId: movie.imdbId });
+        axios.post(
+          `/api/titles/favorite/${movie.imdbId}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          },
+        );
       }
       setIsFavorite(!isFavorite);
     } else if (type === "watchlater") {
       if (isWatchLater) {
-        axios.delete(`/api/titles/watchlater/${movie.imdbId}/`);
+        axios.delete(`/api/titles/watchlater/${movie.imdbId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
       } else {
-        axios.post("/api/titles/watchlater/", { movieId: movie.imdbId });
+        axios.post(
+          `/api/titles/watchlater/${movie.imdbId}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          },
+        );
       }
       setIsWatchLater(!isWatchLater);
     }
@@ -50,8 +86,12 @@ export default function MovieCard({ movie }) {
 
   return (
     <li className="movie-card">
-      {movie.image ? (
-        <img className="movie-card-image" src={movie.image} alt={movie.title} />
+      {movie.imageurls ? (
+        <img
+          className="movie-card-image"
+          src={movie.imageurls}
+          alt={movie.title}
+        />
       ) : (
         <div className="movie-card-image-placeholder" />
       )}
