@@ -53,13 +53,15 @@
 }
 
 .sidebar {
-  background-color: #1a1a1a;
+  background-color: #e53935;
   height: 100%;
   display: flex;
   flex-direction: column;
   transition: width 0.3s ease;
   overflow: hidden;
   flex-shrink: 0;
+  position: relative;
+  z-index: 10;
 }
 
 .sidebar-small {

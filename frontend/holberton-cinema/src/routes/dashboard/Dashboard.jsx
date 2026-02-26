@@ -9,19 +9,20 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 export default function Dashboard({ userUsername, setIsLoggedIn }) {
   return (
     <BrowserRouter>
-      <div>
+      <div className="dashboard-container">
         <Header userUsername={userUsername} setIsLoggedIn={setIsLoggedIn} />
+        <div className="dashboard-body">
+          <Sidebar />
+          <div className="dashboard-content">
+            <Routes>
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/watchlater" element={<WatchLater />} />
+              <Route path="*" element={<Navigate to="/home" />} />
+            </Routes>
+          </div>
+        </div>
       </div>
-      
-      <Sidebar />
-
-      <Routes>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/watchlater" element={<WatchLater />} />
-        <Route path="*" element={<Navigate to="/home" />} />      
-      </Routes>
-
     </BrowserRouter>
   );
 }

@@ -11,6 +11,7 @@ function App() {
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
 
+    if (!accessToken) return;
     if (accessToken) {
       axios
         .post(

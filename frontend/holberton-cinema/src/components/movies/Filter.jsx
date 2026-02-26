@@ -34,8 +34,8 @@ export default function Filter({
 
   return (
     <div className="filter-container">
-      <SearchBar title={title} setTitle={setTitle} />
-      <div className="filter-row">
+      <div className="filter-left">
+        <SearchBar title={title} setTitle={setTitle} />
         <div className="filter-inputs">
           <Input
             label="Min Date :"
@@ -62,18 +62,18 @@ export default function Filter({
             setValue={setSort}
           />
         </div>
-        <ul className="filter-tags">
-          {genresList.map((genre) => (
-            <Tag
-              key={genre}
-              filter={true}
-              genre={genre}
-              genres={genres}
-              setGenres={setGenres}
-            />
-          ))}
-        </ul>
       </div>
+      <ul className="filter-tags">
+        {genresList.map((genre) => (
+          <Tag
+            key={genre}
+            filter={true}
+            genre={genre}
+            genres={genres}
+            setGenres={setGenres}
+          />
+        ))}
+      </ul>
     </div>
   );
 }
