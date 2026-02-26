@@ -1,609 +1,352 @@
-# Holberton School Cinema Guru API
-This is a simple movies API dedicated for Holberton School React Project Holberton School Cinema Guru
+# Holberton School Cinema Guru
 
-## Response Codes 
-### Response Codes
+A full-stack cinema application built with React and Node.js, allowing users to discover, search, and manage their favorite movies and watchlists.
+
+## Overview
+
+Cinema Guru is a modern web application that provides a comprehensive movie browsing experience. Users can explore a curated collection of films, filter by various criteria, and maintain personalized lists of favorites and movies to watch later.
+
+## Frontend Features
+
+### Authentication System
+
+The application features a complete authentication flow with:
+
+- **Sign In / Sign Up** - Toggle between login and registration forms
+- **JWT Token Management** - Secure authentication using JSON Web Tokens stored in localStorage
+- **Protected Routes** - Automatic redirection based on authentication status
+
+### Dashboard Layout
+
+Once authenticated, users access a full-featured dashboard with:
+
+#### Navigation
+
+- **Header** - Displays username and logout functionality
+- **Sidebar** - Quick navigation between different sections:
+  - Home (Browse all movies)
+  - Favorites (Your liked movies)
+  - Watch Later (Your watchlist)
+
+#### Home Page
+
+The main browsing interface includes:
+
+- **Advanced Filtering System**
+  - Year range selector (minimum and maximum year)
+  - Genre multi-select with tags
+  - Title search bar
+  - Sort options: Latest, Oldest, Highest Rated, Lowest Rated
+- **Movie Grid** - Responsive grid layout displaying movie cards
+- **Load More** - Pagination to browse additional movies
+- **Real-time Updates** - Filters apply instantly without page refresh
+
+#### Movie Cards
+
+Each movie card displays:
+
+- Movie poster
+- Title and release year
+- IMDb rating
+- Genre tags
+- Quick action buttons (favorite, watch later)
+
+#### Favorites Page
+
+- Dedicated view for movies marked as favorites
+- Clean grid layout with all your liked movies
+- Page title: "Movies you like"
+
+#### Watch Later Page
+
+- Dedicated view for movies saved to watch later
+- Same grid layout for consistency
+- Page title: "Movies to watch later"
+
+### Technology Stack (Frontend)
+
+- **React 18.3.1** - UI framework
+- **React Router DOM 7.6.2** - Client-side routing
+- **Axios 1.7.7** - HTTP client for API requests
+- **Vite 7.3.1** - Build tool and dev server
+- **FontAwesome** - Icon library
+- **Normalize.css** - CSS reset for consistency
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- Yarn package manager
+- Docker and Docker Compose (for backend)
+
+### Installation
+
+#### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd holbertonschool-cinema-guru
 ```
-200: Success
-400: Bad request
-401: Unauthorized
-404: Cannot be found
-405: Method not allowed
-422: Unprocessable Entity 
-50X: Server Error
+
+#### 2. Setup Backend
+
+```bash
+cd backend
+docker compose up -d
 ```
-### Example Error Message
-```json
-http code 402
+
+The backend will:
+
+- Start on port 8000
+- Initialize a PostgreSQL database
+- Seed the database with movie data from `dump.sql`
+
+#### 3. Setup Frontend
+
+```bash
+cd frontend/holberton-cinema
+yarn install
+```
+
+#### 4. Start Development Server
+
+```bash
+yarn dev
+```
+
+The frontend will start on `http://localhost:5173` (Vite default port)
+
+### Available Scripts (Frontend)
+
+- `yarn dev` - Start development server with hot reload
+- `yarn build` - Build for production
+- `yarn preview` - Preview production build locally
+- `yarn lint` - Run ESLint for code quality
+
+## API Endpoints
+
+### Base URL
+
+```
+http://localhost:8000/api
+```
+
+### Authentication
+
+#### Register
+
+```http
+POST /auth/register
+Content-Type: application/json
+
 {
-    "code": 120,
-    "message": "invalid crendetials",
-    "resolve": "The username or password is not correct."
+  "username": "string",
+  "password": "string"
 }
 ```
 
-## Login
-**You send:**  Your  login credentials.
-**You get:** An `API-Token` with wich you can make further actions.
+**Response:**
 
-**Request:**
 ```json
-POST api/auth/login HTTP/1.1
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
-
 {
-    "username": "foo",
-    "password": "1234567" 
+  "message": "User created successfully",
+  "accessToken": "jwt_token_here"
 }
 ```
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
+
+#### Login
+
+```http
+POST /auth/login
 Content-Type: application/json
-Content-Length: xy
 
 {
-    "message":"Logged in successfully",
-    "accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiQXRlZiIsImlhdCI6MTY0OTg2MzQxNCwiZXhwIjoxNjQ5OTQ5ODE0fQ.WPTSn01ooByJsUF44uwwko1zXj6YObSl0XWZeqHuQiI"
+  "username": "string",
+  "password": "string"
 }
 ```
-**Failed Response:**
+
+**Response:**
+
 ```json
-HTTP/1.1 401 Unauthorized
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
 {
-    "message": "Invalid crendetials",
-}
-``` 
-## Register
-**You send:**  Your  account credentials.
-**You get:** An `API-Token` with wich you can make further actions.
-
-**Request:**
-```json
-POST api/auth/register HTTP/1.1
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
-
-{
-    "username": "foo",
-    "password": "1234567" 
+  "message": "Logged in successfully",
+  "accessToken": "jwt_token_here"
 }
 ```
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
 
+#### Verify Token
+
+```http
+POST /auth/
+Authorization: Bearer {token}
+```
+
+**Response:**
+
+```json
 {
-    "message":"Registred successfully",
-    "accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiQXRlZiIsImlhdCI6MTY0OTg2MzQxNCwiZXhwIjoxNjQ5OTQ5ODE0fQ.WPTSn01ooByJsUF44uwwko1zXj6YObSl0XWZeqHuQiI"
+  "userId": 1,
+  "username": "string"
 }
 ```
-**Failed Response:**
-```json
-HTTP/1.1 400 Unauthorized
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
 
-{
-    "message": "Invalid username",
-}
-``` 
-## Auth
-**You send:**  Your login credentials.
-**You get:** Your userId and username.
+### Titles (Movies)
 
-**Request:**
-```json
-POST api/auth/ HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
+All title endpoints require authentication via Bearer token.
 
-{
-    "username": "foo",
-    "password": "1234567" 
-}
+#### Advanced Search
+
+```http
+GET /titles/advancedsearch?minYear=1970&maxYear=2022&genres=Action,Drama&title=movie&sort=latest&page=1
+Authorization: Bearer {token}
 ```
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
 
+**Query Parameters:**
+
+- `minYear` - Minimum release year
+- `maxYear` - Maximum release year
+- `genres` - Comma-separated genre list
+- `title` - Search by title (partial match)
+- `sort` - Sort order: `latest`, `oldest`, `highestrated`, `lowestrated`
+- `page` - Page number for pagination
+
+**Response:**
+
+```json
 {
-    "userId":5,
-    "username":"foo"
-}
-```
-**Failed Response:**
-```json
-HTTP/1.1 401 Unauthorized
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-{
-    "message": "Invalid token",
-}
-``` 
-## Advanced Search
-**You send:**  Filters and the sorting.
-**You get:** List of movies/shows from DB.
-
-**Request:**
-```json
-GET api/titles/advancedsearch HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
-
-```
-| Parameters        | Description           | Example  |
-| ------------- |:-------------:| -----:|
-| maxYear      | The maximum year of the movie release | "2022" |
-| minYear      | The minimum year of the movie release | "2020" |
-| genre | List of genres seperated by a comma      |    "action,drama,history" |
-| title | The movie/show title     |    "The Meg" |
-| page | The page to query     |    2 |
-| sort | Sort by      |    "latest", "oldest", "highestrated", "lowestrated" |
-
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-{
-    "totalCount": 50
-    "titles": [{
-        "createdAt": "2022-03-28T10:02:29.452Z"
-        "genres": ["Drama"]
-        "id": 2
-        "imageurls": [
-            "https://m.media-amazon.com/images/M/MV5BNzY5Yjg4MDYtNThmOC00ODU0LWIzYjQtOWJhYWFjN2MxZDk0XkEyXkFqcGdeQXVyNDMyNTgyNDQ@._V1_UY268_CR146,0,182,268_AL_.jpg"
-        ]
-        "imdbId": "tt9899344"
-        "imdbrating": -1
-        "quotes": []
-        "released": 2022
-        "reviews": []
-        "runtime": -1
-        "summary": ""
-        "synopsis": "Dreamers in a lonely circus."
-        "title": "GodHead: In a fiction, in a dream of passion"
-        "trailerUrl": []
-        "type": "movie"
-        "updatedAt": "2022-03-28T10:02:29.452Z"
-    },
-    ...
-    ]
-}
-```
-**Failed Response:**
-```json
-HTTP/1.1 500 Internal Error
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-{
-    ...
-}
-``` 
-## Favorites
-**You send:**  N/A.
-**You get:** List of favorited movies/shows from DB.
-
-**Request:**
-```json
-GET api/titles/favorite HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
-
-```
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-[
+  "totalCount": 10,
+  "titles": [
     {
-        "createdAt": "2022-03-28T10:02:29.452Z"
-        "genres": ["Drama"]
-        "id": 2
-        "imageurls": [
-            "https://m.media-amazon.com/images/M/MV5BNzY5Yjg4MDYtNThmOC00ODU0LWIzYjQtOWJhYWFjN2MxZDk0XkEyXkFqcGdeQXVyNDMyNTgyNDQ@._V1_UY268_CR146,0,182,268_AL_.jpg"
-        ]
-        "imdbId": "tt9899344"
-        "imdbrating": -1
-        "quotes": []
-        "released": 2022
-        "reviews": []
-        "runtime": -1
-        "summary": ""
-        "synopsis": "Dreamers in a lonely circus."
-        "title": "GodHead: In a fiction, in a dream of passion"
-        "trailerUrl": []
-        "type": "movie"
-        "updatedAt": "2022-03-28T10:02:29.452Z"
-    },
-    ...
-]
-```
-**Failed Response:**
-```json
-HTTP/1.1 500 Internal Error
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-{
-    ...
+      "id": 1,
+      "imdbId": "tt1234567",
+      "title": "Movie Title",
+      "released": 2020,
+      "imdbrating": 8.5,
+      "genres": ["Action", "Drama"]
+    }
+  ]
 }
-``` 
-## Watch Later
-**You send:**  N/A.
-**You get:** List of movies/shows to watch later from DB.
-
-**Request:**
-```json
-GET api/titles/watchlater HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
-
 ```
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
 
-[
-    {
-        "createdAt": "2022-03-28T10:02:29.452Z"
-        "genres": ["Drama"]
-        "id": 2
-        "imageurls": [
-            "https://m.media-amazon.com/images/M/MV5BNzY5Yjg4MDYtNThmOC00ODU0LWIzYjQtOWJhYWFjN2MxZDk0XkEyXkFqcGdeQXVyNDMyNTgyNDQ@._V1_UY268_CR146,0,182,268_AL_.jpg"
-        ]
-        "imdbId": "tt9899344"
-        "imdbrating": -1
-        "quotes": []
-        "released": 2022
-        "reviews": []
-        "runtime": -1
-        "summary": ""
-        "synopsis": "Dreamers in a lonely circus."
-        "title": "GodHead: In a fiction, in a dream of passion"
-        "trailerUrl": []
-        "type": "movie"
-        "updatedAt": "2022-03-28T10:02:29.452Z"
-    },
-    ...
-]
+#### Get Title by IMDb ID
+
+```http
+GET /titles/:imdbId
+Authorization: Bearer {token}
 ```
-**Failed Response:**
-```json
-HTTP/1.1 500 Internal Error
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
 
+#### Get Favorite Movies
+
+```http
+GET /titles/favorite/
+Authorization: Bearer {token}
+```
+
+**Response:**
+
+```json
 {
-    ...
+  "movies": [...]
 }
-``` 
-## Favorite A Movie
-**You send:**  The movie IMDB Id.
-**You get:** List of all favorited movies.
-
-**Request:**
-```json
-POST api/titles/favorite HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
 ```
 
-| Parameters        | Description           | Example  |
-| ------------- |:-------------:| -----:|
-| imdbId      | Imdb movie/show Id | "tt9899344" |
+#### Add to Favorites
 
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-[
-    {
-        "createdAt": "2022-03-28T10:02:29.452Z"
-        "genres": ["Drama"]
-        "id": 2
-        "imageurls": [
-            "https://m.media-amazon.com/images/M/MV5BNzY5Yjg4MDYtNThmOC00ODU0LWIzYjQtOWJhYWFjN2MxZDk0XkEyXkFqcGdeQXVyNDMyNTgyNDQ@._V1_UY268_CR146,0,182,268_AL_.jpg"
-        ]
-        "imdbId": "tt9899344"
-        "imdbrating": -1
-        "quotes": []
-        "released": 2022
-        "reviews": []
-        "runtime": -1
-        "summary": ""
-        "synopsis": "Dreamers in a lonely circus."
-        "title": "GodHead: In a fiction, in a dream of passion"
-        "trailerUrl": []
-        "type": "movie"
-        "updatedAt": "2022-03-28T10:02:29.452Z"
-    },
-    ...
-]
-
+```http
+POST /titles/favorite/:imdbId
+Authorization: Bearer {token}
 ```
 
+#### Remove from Favorites
 
-**Failed Response:**
-```json
-HTTP/1.1 500 Internal Error
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-{
-    ...
-}
-``` 
-## Add movie to watch later
-**You send:**  The movie IMDB Id.
-**You get:** List of all to watch later movies.
-
-**Request:**
-```json
-POST api/titles/watchlater HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
-
+```http
+DELETE /titles/favorite/:imdbId
+Authorization: Bearer {token}
 ```
 
-| Parameters        | Description           | Example  |
-| ------------- |:-------------:| -----:|
-| imdbId      | Imdb movie/show Id | "tt9899344" |
+#### Get Watch Later List
 
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-[
-    {
-        "createdAt": "2022-03-28T10:02:29.452Z"
-        "genres": ["Drama"]
-        "id": 2
-        "imageurls": [
-            "https://m.media-amazon.com/images/M/MV5BNzY5Yjg4MDYtNThmOC00ODU0LWIzYjQtOWJhYWFjN2MxZDk0XkEyXkFqcGdeQXVyNDMyNTgyNDQ@._V1_UY268_CR146,0,182,268_AL_.jpg"
-        ]
-        "imdbId": "tt9899344"
-        "imdbrating": -1
-        "quotes": []
-        "released": 2022
-        "reviews": []
-        "runtime": -1
-        "summary": ""
-        "synopsis": "Dreamers in a lonely circus."
-        "title": "GodHead: In a fiction, in a dream of passion"
-        "trailerUrl": []
-        "type": "movie"
-        "updatedAt": "2022-03-28T10:02:29.452Z"
-    },
-    ...
-]
-```
-**Failed Response:**
-```json
-HTTP/1.1 500 Internal Error
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-{
-    ...
-}
-``` 
-## Remove movie from favorites
-**You send:**  The movie IMDB Id.
-**You get:** List of all favorited movies.
-
-**Request:**
-```json
-DELETE api/titles/favorite HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
-
+```http
+GET /titles/watchlater/
+Authorization: Bearer {token}
 ```
 
-| Parameters        | Description           | Example  |
-| ------------- |:-------------:| -----:|
-| imdbId      | Imdb movie/show Id | "tt9899344" |
+#### Add to Watch Later
 
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-[
-    {
-        "createdAt": "2022-03-28T10:02:29.452Z"
-        "genres": ["Drama"]
-        "id": 2
-        "imageurls": [
-            "https://m.media-amazon.com/images/M/MV5BNzY5Yjg4MDYtNThmOC00ODU0LWIzYjQtOWJhYWFjN2MxZDk0XkEyXkFqcGdeQXVyNDMyNTgyNDQ@._V1_UY268_CR146,0,182,268_AL_.jpg"
-        ]
-        "imdbId": "tt9899344"
-        "imdbrating": -1
-        "quotes": []
-        "released": 2022
-        "reviews": []
-        "runtime": -1
-        "summary": ""
-        "synopsis": "Dreamers in a lonely circus."
-        "title": "GodHead: In a fiction, in a dream of passion"
-        "trailerUrl": []
-        "type": "movie"
-        "updatedAt": "2022-03-28T10:02:29.452Z"
-    },
-    ...
-]
-```
-**Failed Response:**
-```json
-HTTP/1.1 500 Internal Error
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-{
-    ...
-}
-``` 
-## Remove movie from watch later
-**You send:**  The movie IMDB Id.
-**You get:** List of all to watch later movies.
-
-**Request:**
-```json
-DELETE api/titles/watchlater HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
-
+```http
+POST /titles/watchlater/:imdbId
+Authorization: Bearer {token}
 ```
 
-| Parameters        | Description           | Example  |
-| ------------- |:-------------:| -----:|
-| imdbId      | Imdb movie/show Id | "tt9899344" |
+#### Remove from Watch Later
 
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-[
-    {
-        "createdAt": "2022-03-28T10:02:29.452Z"
-        "genres": ["Drama"]
-        "id": 2
-        "imageurls": [
-            "https://m.media-amazon.com/images/M/MV5BNzY5Yjg4MDYtNThmOC00ODU0LWIzYjQtOWJhYWFjN2MxZDk0XkEyXkFqcGdeQXVyNDMyNTgyNDQ@._V1_UY268_CR146,0,182,268_AL_.jpg"
-        ]
-        "imdbId": "tt9899344"
-        "imdbrating": -1
-        "quotes": []
-        "released": 2022
-        "reviews": []
-        "runtime": -1
-        "summary": ""
-        "synopsis": "Dreamers in a lonely circus."
-        "title": "GodHead: In a fiction, in a dream of passion"
-        "trailerUrl": []
-        "type": "movie"
-        "updatedAt": "2022-03-28T10:02:29.452Z"
-    },
-    ...
-]
+```http
+DELETE /titles/watchlater/:imdbId
+Authorization: Bearer {token}
 ```
-**Failed Response:**
-```json
-HTTP/1.1 500 Internal Error
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
 
-{
-    ...
-}
-``` 
-## User activities
-**You send:**  N/A.
-**You get:** List of recent user activities.
+### User Activity
 
-**Request:**
-```json
-GET api/activity/ HTTP/1.1
-Authorization: "Bearer <accessToken>"
-Accept: application/json
-Content-Type: application/json
-Content-Length: xy
+#### Get All Activities
+
+```http
+GET /activity/
+Authorization: Bearer {token}
+```
+
+Returns a list of user activities (favorites added, watch later additions) with user and title information.
+
+## Project Structure
 
 ```
-**Successful Response:**
-```json
-HTTP/1.1 200 OK
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
-
-[
-    {
-        "TitleId": 2
-        "activityType": "favorite"
-        "createdAt": "2022-04-13T15:53:26.751Z"
-        "id": 77
-        "title": {title: "GodHead: In a fiction, in a dream of passion"}
-        "updatedAt": "2022-04-13T15:53:26.751Z"
-        "user": {username: "Atef"}
-        "userId": 1
-    },
-    ...
-]
+holbertonschool-cinema-guru/
+├── backend/
+│   ├── config/         # Database configuration
+│   ├── models/         # Sequelize models (User, Title, UserActivity)
+│   ├── routes/         # API route handlers
+│   ├── utils/          # Helper functions (JWT, password hashing)
+│   ├── docker-compose.yml
+│   ├── Dockerfile
+│   ├── dump.sql        # Database seed file
+│   └── index.js        # Express server entry point
+│
+└── frontend/
+    └── holberton-cinema/
+        ├── src/
+        │   ├── components/     # Reusable UI components
+        │   │   ├── general/    # Button, Input, SearchBar
+        │   │   ├── movies/     # MovieCard, Filter, Tag
+        │   │   └── navigation/ # Header, Sidebar
+        │   ├── routes/         # Page components
+        │   │   ├── auth/       # Authentication, Login, Register
+        │   │   └── dashboard/  # Dashboard, HomePage, Favorites, WatchLater
+        │   ├── App.jsx         # Main app component
+        │   └── main.jsx        # Entry point
+        └── package.json
 ```
-**Failed Response:**
-```json
-HTTP/1.1 500 Internal Error
-Server: My RESTful API
-Content-Type: application/json
-Content-Length: xy
 
-{
-    ...
-}
-``` 
+## Key Features Summary
 
-## Authors
+- User authentication and authorization
+- Advanced movie search and filtering
+- Responsive grid layout for movie browsing
+- Personal favorites collection
+- Watch later list functionality
+- Real-time filter updates
+- Pagination for large datasets
+- Clean and intuitive UI/UX
+- RESTful API architecture
+- JWT-based security
 
-- Atef Mechken [@atefMck](https://www.github.com/atefMck)
+## Backend Technologies
+
+- **Express.js** - Web framework
+- **Sequelize** - ORM for PostgreSQL
+- **PostgreSQL** - Database
+- **bcrypt** - Password hashing
+- **jsonwebtoken** - JWT authentication
+- **Docker** - Containerization
+
+---
