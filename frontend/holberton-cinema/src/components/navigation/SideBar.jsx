@@ -28,7 +28,11 @@ export default function SideBar() {
 
   useEffect(() => {
     axios
-      .get("/api/activity")
+      .get("/api/activity", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
       .then((response) => setActivities(response.data))
       .catch((error) => console.log("Error getting activites", error));
   }, []);
